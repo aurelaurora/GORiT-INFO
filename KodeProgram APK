@@ -1,0 +1,142 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct Penduduk {
+    string nama;
+    string alamat;
+    int umur;
+};
+
+struct KegiatanBulanan {
+    int iuranSampah;
+    int iuranKeamanan;
+    int jumlahSampah;
+    double luasWilayah;
+};
+
+void dataKelahiran(vector<Penduduk>& penduduk) {
+    Penduduk individu;
+    cout << "Masukkan nama bayi: ";
+    getline(cin, individu.nama);
+    cout << "Masukkan alamat: ";
+    getline(cin, individu.alamat);
+    cout << "Masukkan umur bayi: ";
+    cin >> individu.umur;
+    cin.ignore(); // membersihkan newline dari buffer
+    penduduk.push_back(individu);
+    cout << "Data kelahiran berhasil ditambahkan.\n";
+}
+
+void dataKematian(vector<Penduduk>& penduduk) {
+    string nama;
+    cout << "Masukkan nama penduduk yang meninggal: ";
+    getline(cin, nama);
+    for (auto it = penduduk.begin(); it != penduduk.end(); ++it) {
+        if (it->nama == nama) {
+            penduduk.erase(it);
+            cout << "Data kematian berhasil dihapus.\n";
+            return;
+        }
+    }
+    cout << "Data penduduk tidak ditemukan.\n";
+}
+
+void dataTamu() {
+    // implementasi pendataan tamu
+    cout << "Fungsi pendataan tamu belum diimplementasikan.\n";
+}
+
+void tarikIuranSampah(KegiatanBulanan& kegiatan) {
+    cout << "Masukkan jumlah iuran sampah yang ingin ditarik: ";
+    cin >> kegiatan.iuranSampah;
+    cout << "Iuran sampah sebesar " << kegiatan.iuranSampah << " berhasil ditarik.\n";
+}
+
+void tarikIuranKeamanan(KegiatanBulanan& kegiatan) {
+    cout << "Masukkan jumlah iuran keamanan yang ingin ditarik: ";
+    cin >> kegiatan.iuranKeamanan;
+    cout << "Iuran keamanan sebesar " << kegiatan.iuranKeamanan << " berhasil ditarik.\n";
+}
+
+void dataJumlahSampah(KegiatanBulanan& kegiatan) {
+    cout << "Masukkan jumlah sampah yang dihasilkan warga: ";
+    cin >> kegiatan.jumlahSampah;
+    cout << "Jumlah sampah berhasil didata.\n";
+}
+
+void dataLuasWilayah(KegiatanBulanan& kegiatan) {
+    cout << "Masukkan luas wilayah RT (dalam hektar): ";
+    cin >> kegiatan.luasWilayah;
+    cout << "Luas wilayah berhasil didata.\n";
+}
+
+void tampilkanData(const vector<Penduduk>& penduduk, const KegiatanBulanan& kegiatan) {
+    cout << "\nData Penduduk:\n";
+    for (const auto& individu : penduduk) {
+        cout << "Nama: " << individu.nama << ", Alamat: " << individu.alamat << ", Umur: " << individu.umur << endl;
+    }
+    cout << "\nData Kegiatan Bulanan:\n";
+    cout << "Iuran Sampah: " << kegiatan.iuranSampah << endl;
+    cout << "Iuran Keamanan: " << kegiatan.iuranKeamanan << endl;
+    cout << "Jumlah Sampah: " << kegiatan.jumlahSampah << endl;
+    cout << "Luas Wilayah: " << kegiatan.luasWilayah << " hektar\n";
+}
+
+int main() {
+    vector<Penduduk> penduduk;
+    KegiatanBulanan kegiatan;
+
+    int pilihan;
+    do {
+        cout << "\nPilih Operasi yang Ingin Dilakukan:\n";
+        cout << "1. Pendataan Kelahiran\n";
+        cout << "2. Pendataan Kematian\n";
+        cout << "3. Pendataan Tamu\n";
+        cout << "4. Penarikan Iuran Sampah\n";
+        cout << "5. Penarikan Iuran Keamanan\n";
+        cout << "6. Pendataan Jumlah Sampah\n";
+        cout << "7. Pendataan Luas Wilayah\n";
+        cout << "8. Tampilkan Data\n";
+        cout << "9. Keluar\n";
+        cout << "Masukkan pilihan: ";
+        cin >> pilihan;
+        cin.ignore(); // membersihkan newline dari buffer
+
+        switch (pilihan) {
+            case 1:
+                dataKelahiran(penduduk);
+                break;
+            case 2:
+                dataKematian(penduduk);
+                break;
+            case 3:
+                dataTamu();
+                break;
+            case 4:
+                tarikIuranSampah(kegiatan);
+                break;
+            case 5:
+                tarikIuranKeamanan(kegiatan);
+                break;
+            case 6:
+                dataJumlahSampah(kegiatan);
+                break;
+            case 7:
+                dataLuasWilayah(kegiatan);
+                break;
+            case 8:
+                tampilkanData(penduduk, kegiatan);
+                break;
+            case 9:
+                cout << "Terima kasih. Program selesai.\n";
+                break;
+            default:
+                cout << "Pilihan tidak valid.\n";
+        }
+    } while (pilihan != 9);
+
+    return 0;
+}
